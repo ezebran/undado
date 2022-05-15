@@ -1,0 +1,1443 @@
+/* 
+You can find some of the ideas I used in this pen on the detail page and in the code: https://codepen.io/HunorMarton/details/mdERrLy
+
+Follow me on twitter: https://twitter.com/HunorBorbely
+*/
+body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  background-color: #ececec;
+  margin: 0;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -180px;
+  margin-top: -230px;
+}
+
+.grid {
+  position: relative;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 100px 100px 100px;
+      grid-template-columns: 100px 100px 100px;
+  -ms-grid-rows: 280px 100px 20px;
+      grid-template-rows: 280px 100px 20px;
+  grid-column-gap: 20px;
+  grid-row-gap: 30px;
+  border-radius: 10px;
+}
+
+.grid .dice {
+  -ms-grid-row: 1;
+  grid-row: 1;
+  grid-column: 1 / -1;
+}
+
+.grid .y-radio,
+.grid .y-degree,
+.grid .y-arrow {
+  -ms-grid-row: 2;
+  grid-row: 2;
+  -ms-grid-column: 1;
+  grid-column: 1;
+}
+
+.grid .z-radio,
+.grid .z-degree,
+.grid .z-arrow {
+  -ms-grid-row: 2;
+  grid-row: 2;
+  -ms-grid-column: 2;
+  grid-column: 2;
+}
+
+.grid .x-radio,
+.grid .x-degree,
+.grid .x-arrow {
+  -ms-grid-row: 2;
+  grid-row: 2;
+  -ms-grid-column: 3;
+  grid-column: 3;
+}
+
+.grid .radio {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 5;
+  cursor: pointer;
+}
+
+.grid .degree {
+  border-radius: 10px;
+  color: #6f9ceb;
+  font-weight: 900;
+  font-size: 1.5em;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.grid .label {
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+.degree,
+.radio {
+  display: none;
+}
+
+.y-radio[value="1"],
+.y-radio[value="1"]:checked ~ .y-radio[value="2"],
+.y-radio[value="2"]:checked ~ .y-radio[value="3"],
+.y-radio[value="3"]:checked ~ .y-radio[value="4"] {
+  display: block;
+}
+
+.z-radio[value="1"],
+.z-radio[value="1"]:checked ~ .z-radio[value="2"],
+.z-radio[value="2"]:checked ~ .z-radio[value="3"],
+.z-radio[value="3"]:checked ~ .z-radio[value="4"] {
+  display: block;
+}
+
+.x-radio[value="1"],
+.x-radio[value="1"]:checked ~ .x-radio[value="2"],
+.x-radio[value="2"]:checked ~ .x-radio[value="3"],
+.x-radio[value="3"]:checked ~ .x-radio[value="4"] {
+  display: block;
+}
+
+.y-radio[value="1"]:checked ~ .y-radio:hover ~ #y1,
+.y-radio:hover ~ .y-radio[value="1"]:checked ~ #y1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.y-radio[value="2"]:checked ~ .y-radio:hover ~ #y2,
+.y-radio:hover ~ .y-radio[value="2"]:checked ~ #y2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.y-radio[value="3"]:checked ~ .y-radio:hover ~ #y3,
+.y-radio:hover ~ .y-radio[value="3"]:checked ~ #y3 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.y-radio[value="4"]:checked ~ .y-radio:hover ~ #y4,
+.y-radio:hover ~ .y-radio[value="4"]:checked ~ #y4 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.z-radio[value="1"]:checked ~ .z-radio:hover ~ #z1,
+.z-radio:hover ~ .z-radio[value="1"]:checked ~ #z1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.z-radio[value="2"]:checked ~ .z-radio:hover ~ #z2,
+.z-radio:hover ~ .z-radio[value="2"]:checked ~ #z2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.z-radio[value="3"]:checked ~ .z-radio:hover ~ #z3,
+.z-radio:hover ~ .z-radio[value="3"]:checked ~ #z3 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.z-radio[value="4"]:checked ~ .z-radio:hover ~ #z4,
+.z-radio:hover ~ .z-radio[value="4"]:checked ~ #z4 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.x-radio[value="1"]:checked ~ .x-radio:hover ~ #x1,
+.x-radio:hover ~ .x-radio[value="1"]:checked ~ #x1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.x-radio[value="2"]:checked ~ .x-radio:hover ~ #x2,
+.x-radio:hover ~ .x-radio[value="2"]:checked ~ #x2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.x-radio[value="3"]:checked ~ .x-radio:hover ~ #x3,
+.x-radio:hover ~ .x-radio[value="3"]:checked ~ #x3 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.x-radio[value="4"]:checked ~ .x-radio:hover ~ #x4,
+.x-radio:hover ~ .x-radio[value="4"]:checked ~ #x4 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.dice {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform 2s;
+  transition: -webkit-transform 2s;
+  transition: transform 2s;
+  transition: transform 2s, -webkit-transform 2s;
+}
+
+.dice .box {
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  width: 150px;
+  height: 150px;
+  position: relative;
+}
+
+.dice .box svg {
+  background-color: white;
+  border: 2px solid #353535;
+  fill: #0f0f0f;
+  position: absolute;
+  border-radius: 10px;
+  width: 150px;
+  height: 150px;
+}
+
+.dice .box .front {
+  -webkit-transform: translateX(-75px) translateZ(75px);
+          transform: translateX(-75px) translateZ(75px);
+}
+
+.dice .box .back {
+  -webkit-transform: translateX(-75px) rotateX(180deg) translateZ(75px);
+          transform: translateX(-75px) rotateX(180deg) translateZ(75px);
+}
+
+.dice .box .right {
+  -webkit-transform: translateX(-75px) rotateY(90deg) translateZ(75px);
+          transform: translateX(-75px) rotateY(90deg) translateZ(75px);
+}
+
+.dice .box .left {
+  -webkit-transform: translateX(-75px) rotateY(-90deg) translateZ(75px);
+          transform: translateX(-75px) rotateY(-90deg) translateZ(75px);
+}
+
+.dice .box .top {
+  -webkit-transform: translateX(-75px) rotateX(90deg) translateZ(75px);
+          transform: translateX(-75px) rotateX(90deg) translateZ(75px);
+}
+
+.dice .box .bottom {
+  -webkit-transform: translateX(-75px) rotateX(-90deg) translateZ(75px);
+          transform: translateX(-75px) rotateX(-90deg) translateZ(75px);
+}
+
+.arrow {
+  position: relative;
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform 1s;
+  transition: -webkit-transform 1s;
+  transition: transform 1s;
+  transition: transform 1s, -webkit-transform 1s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.arrow .head {
+  position: absolute;
+  -webkit-transform: translateZ(40px);
+          transform: translateZ(40px);
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 25px solid #282828;
+}
+
+.arrow .tail-part {
+  position: absolute;
+  width: 30px;
+  height: 8px;
+}
+
+.arrow .tail-part:nth-of-type(2) {
+  -webkit-transform: rotateX(-20deg) translateZ(40px);
+          transform: rotateX(-20deg) translateZ(40px);
+  background-color: #2d2d2d;
+}
+
+.arrow .tail-part:nth-of-type(3) {
+  -webkit-transform: rotateX(-30deg) translateZ(40px);
+          transform: rotateX(-30deg) translateZ(40px);
+  background-color: #303030;
+}
+
+.arrow .tail-part:nth-of-type(4) {
+  -webkit-transform: rotateX(-40deg) translateZ(40px);
+          transform: rotateX(-40deg) translateZ(40px);
+  background-color: #323232;
+}
+
+.arrow .tail-part:nth-of-type(5) {
+  -webkit-transform: rotateX(-50deg) translateZ(40px);
+          transform: rotateX(-50deg) translateZ(40px);
+  background-color: #353535;
+}
+
+.arrow .tail-part:nth-of-type(6) {
+  -webkit-transform: rotateX(-60deg) translateZ(40px);
+          transform: rotateX(-60deg) translateZ(40px);
+  background-color: #373737;
+}
+
+.arrow .tail-part:nth-of-type(7) {
+  -webkit-transform: rotateX(-70deg) translateZ(40px);
+          transform: rotateX(-70deg) translateZ(40px);
+  background-color: #3a3a3a;
+}
+
+.arrow .tail-part:nth-of-type(8) {
+  -webkit-transform: rotateX(-80deg) translateZ(40px);
+          transform: rotateX(-80deg) translateZ(40px);
+  background-color: #3c3c3c;
+}
+
+.arrow .tail-part:nth-of-type(9) {
+  -webkit-transform: rotateX(-90deg) translateZ(40px);
+          transform: rotateX(-90deg) translateZ(40px);
+  background-color: #3f3f3f;
+}
+
+.arrow .tail-part:nth-of-type(10) {
+  -webkit-transform: rotateX(-100deg) translateZ(40px);
+          transform: rotateX(-100deg) translateZ(40px);
+  background-color: #424242;
+}
+
+.arrow .tail-part:nth-of-type(11) {
+  -webkit-transform: rotateX(-110deg) translateZ(40px);
+          transform: rotateX(-110deg) translateZ(40px);
+  background-color: #444444;
+}
+
+.arrow .tail-part:nth-of-type(12) {
+  -webkit-transform: rotateX(-120deg) translateZ(40px);
+          transform: rotateX(-120deg) translateZ(40px);
+  background-color: #474747;
+}
+
+.arrow .tail-part:nth-of-type(13) {
+  -webkit-transform: rotateX(-130deg) translateZ(40px);
+          transform: rotateX(-130deg) translateZ(40px);
+  background-color: #494949;
+}
+
+.arrow .tail-part:nth-of-type(14) {
+  -webkit-transform: rotateX(-140deg) translateZ(40px);
+          transform: rotateX(-140deg) translateZ(40px);
+  background-color: #4c4c4c;
+}
+
+.arrow .tail-part:nth-of-type(15) {
+  -webkit-transform: rotateX(-150deg) translateZ(40px);
+          transform: rotateX(-150deg) translateZ(40px);
+  background-color: #4e4e4e;
+}
+
+.arrow .tail-part:nth-of-type(16) {
+  -webkit-transform: rotateX(-160deg) translateZ(40px);
+          transform: rotateX(-160deg) translateZ(40px);
+  background-color: #515151;
+}
+
+.arrow .tail-part:nth-of-type(17) {
+  -webkit-transform: rotateX(-170deg) translateZ(40px);
+          transform: rotateX(-170deg) translateZ(40px);
+  background-color: #535353;
+}
+
+.arrow .tail-part:nth-of-type(18) {
+  -webkit-transform: rotateX(-180deg) translateZ(40px);
+          transform: rotateX(-180deg) translateZ(40px);
+  background-color: #565656;
+}
+
+.arrow .tail-part:nth-of-type(19) {
+  -webkit-transform: rotateX(-190deg) translateZ(40px);
+          transform: rotateX(-190deg) translateZ(40px);
+  background-color: #585858;
+}
+
+.arrow .tail-part:nth-of-type(20) {
+  -webkit-transform: rotateX(-200deg) translateZ(40px);
+          transform: rotateX(-200deg) translateZ(40px);
+  background-color: #5b5b5b;
+}
+
+.arrow .tail-part:nth-of-type(21) {
+  -webkit-transform: rotateX(-210deg) translateZ(40px);
+          transform: rotateX(-210deg) translateZ(40px);
+  background-color: #5e5e5e;
+}
+
+.arrow .tail-part:nth-of-type(22) {
+  -webkit-transform: rotateX(-220deg) translateZ(40px);
+          transform: rotateX(-220deg) translateZ(40px);
+  background-color: #606060;
+}
+
+.arrow .tail-part:nth-of-type(23) {
+  -webkit-transform: rotateX(-230deg) translateZ(40px);
+          transform: rotateX(-230deg) translateZ(40px);
+  background-color: #636363;
+}
+
+.arrow .tail-part:nth-of-type(24) {
+  -webkit-transform: rotateX(-240deg) translateZ(40px);
+          transform: rotateX(-240deg) translateZ(40px);
+  background-color: #656565;
+}
+
+.arrow .tail-part:nth-of-type(25) {
+  -webkit-transform: rotateX(-250deg) translateZ(40px);
+          transform: rotateX(-250deg) translateZ(40px);
+  background-color: #686868;
+}
+
+.arrow .tail-part:nth-of-type(26) {
+  -webkit-transform: rotateX(-260deg) translateZ(40px);
+          transform: rotateX(-260deg) translateZ(40px);
+  background-color: #6a6a6a;
+}
+
+.arrow .tail-part:nth-of-type(27) {
+  -webkit-transform: rotateX(-270deg) translateZ(40px);
+          transform: rotateX(-270deg) translateZ(40px);
+  background-color: #6d6d6d;
+}
+
+.arrow .tail-part:nth-of-type(28) {
+  -webkit-transform: rotateX(-280deg) translateZ(40px);
+          transform: rotateX(-280deg) translateZ(40px);
+  background-color: #6f6f6f;
+}
+
+.arrow .tail-part:nth-of-type(29) {
+  -webkit-transform: rotateX(-290deg) translateZ(40px);
+          transform: rotateX(-290deg) translateZ(40px);
+  background-color: #727272;
+}
+
+.arrow .tail-part:nth-of-type(30) {
+  -webkit-transform: rotateX(-300deg) translateZ(40px);
+          transform: rotateX(-300deg) translateZ(40px);
+  background-color: #757575;
+}
+
+.arrow .tail-part:nth-of-type(31) {
+  -webkit-transform: rotateX(-310deg) translateZ(40px);
+          transform: rotateX(-310deg) translateZ(40px);
+  background-color: #777777;
+}
+
+.y-radio[value="1"]:checked ~ .y-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(-90deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(-90deg) rotateX(0deg);
+}
+
+.y-radio[value="2"]:checked ~ .y-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(-90deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(-90deg) rotateX(90deg);
+}
+
+.y-radio[value="3"]:checked ~ .y-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(-90deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(-90deg) rotateX(180deg);
+}
+
+.y-radio[value="4"]:checked ~ .y-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(-90deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(-90deg) rotateX(270deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="1"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(-90deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(-90deg) rotateX(0deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="2"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(-90deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(-90deg) rotateX(90deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="3"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(-90deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(-90deg) rotateX(180deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="4"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(-90deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(-90deg) rotateX(270deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="1"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(0deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(0deg) rotateX(0deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="2"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(0deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(0deg) rotateX(90deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="3"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(0deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(0deg) rotateX(180deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="4"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(0deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(0deg) rotateX(270deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="1"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(90deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(90deg) rotateX(0deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="2"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(90deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(90deg) rotateX(90deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="3"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(90deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(90deg) rotateX(180deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="4"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(90deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(90deg) rotateX(270deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="1"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(180deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(180deg) rotateX(0deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="2"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(180deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(180deg) rotateX(90deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="3"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(180deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(180deg) rotateX(180deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="4"]:checked ~ .z-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(180deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateZ(180deg) rotateY(180deg) rotateX(270deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(0deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(90deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(180deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(270deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(0deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(90deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(180deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(270deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(0deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(90deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(180deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(270deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(0deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(90deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(180deg);
+}
+
+.y-radio[value="1"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(270deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(0deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(90deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(180deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(270deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(0deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(90deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(180deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(270deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(0deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(90deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(180deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(270deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(0deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(90deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(180deg);
+}
+
+.y-radio[value="2"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(270deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(0deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(90deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(180deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(270deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(0deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(90deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(180deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(270deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(0deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(90deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(180deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(270deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(0deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(90deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(180deg);
+}
+
+.y-radio[value="3"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(270deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(0deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(90deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(180deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="1"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(270deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(0deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(90deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(180deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="2"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(270deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(0deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(90deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(180deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="3"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(270deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="1"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(0deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="2"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(90deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="3"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(180deg);
+}
+
+.y-radio[value="4"]:checked ~ .z-radio[value="4"]:checked ~ .x-radio[value="4"]:checked ~ .x-arrow {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(270deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(0deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(90deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(180deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(0deg) rotateX(270deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(0deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(90deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(180deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(90deg) rotateX(270deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(0deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(90deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(180deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(180deg) rotateX(270deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(0deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(90deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(180deg);
+}
+
+.y-radio[value="1"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(0deg) rotateZ(270deg) rotateX(270deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(0deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(90deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(180deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(0deg) rotateX(270deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(0deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(90deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(180deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(90deg) rotateX(270deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(0deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(90deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(180deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(180deg) rotateX(270deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(0deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(90deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(180deg);
+}
+
+.y-radio[value="2"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-90deg) rotateZ(270deg) rotateX(270deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(0deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(90deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(180deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(0deg) rotateX(270deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(0deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(90deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(180deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(90deg) rotateX(270deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(0deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(90deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(180deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(180deg) rotateX(270deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(0deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(90deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(180deg);
+}
+
+.y-radio[value="3"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-180deg) rotateZ(270deg) rotateX(270deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(0deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(90deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(180deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="1"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(0deg) rotateX(270deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(0deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(90deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(180deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="2"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(90deg) rotateX(270deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(0deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(90deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(180deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="3"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(180deg) rotateX(270deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="1"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(0deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(0deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="2"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(90deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(90deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="3"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(180deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(180deg);
+}
+
+.y-radio[value="4"]:checked
+~ .z-radio[value="4"]:checked
+~ .x-radio[value="4"]:checked
+~ .dice {
+  -webkit-transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(270deg);
+          transform: rotateX(-20deg) rotateY(-40deg) rotateY(-270deg) rotateZ(270deg) rotateX(270deg);
+}
+
+footer {
+  position: absolute;
+  bottom: 20px;
+  font-size: 0.8em;
+  text-align: center;
+  width: 100%;
+}
+
+footer a:visited {
+  color: inherit;
+}
+/*# sourceMappingURL=styles.css.map */
