@@ -204,7 +204,7 @@ $axis: "y", "z", "x";
   transform-origin: center center;
   transform-style: preserve-3d;
   transition: transform 2s;
-
+  transform: rotateX(50deg) rotateY(50deg) rotateZ(90deg);
   .box {
     transform-style: preserve-3d;
 

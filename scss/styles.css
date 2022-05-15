@@ -309,6 +309,8 @@ h1 {
   transition: -webkit-transform 2s;
   transition: transform 2s;
   transition: transform 2s, -webkit-transform 2s;
+  -webkit-transform: rotateX(50deg) rotateY(50deg) rotateZ(90deg);
+          transform: rotateX(50deg) rotateY(50deg) rotateZ(90deg);
 }
 
 .dice .box {
