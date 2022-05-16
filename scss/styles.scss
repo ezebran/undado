@@ -195,7 +195,6 @@ $axis: "y", "z", "x";
 }
 
 // Making the dice look 3D
-// The rotation of the dice is at the bottom of CSS
 .dice {
   display: flex;
   justify-content: center;
@@ -203,7 +202,7 @@ $axis: "y", "z", "x";
 
   transform-origin: center center;
   transform-style: preserve-3d;
-  transition: transform 2s;
+  transition: transform 3s;
   transform: rotateX(50deg) rotateY(50deg) rotateZ(90deg);
   .box {
     transform-style: preserve-3d;
